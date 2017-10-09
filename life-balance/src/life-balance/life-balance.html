@@ -29,8 +29,8 @@
 
         <esc-gps id="gps"></esc-gps>
 
-        <google-map no-auto-tilt fit-to-marker api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc" zoom="7">
-            <google-map-marker drag-events latitude="{{latitude}}" longitude="{{longitude}}" draggable="true"></google-map-marker>
+        <google-map latitude="{{latitude}}" longitude="{{longitude}}" id="mapa" fit-to-markers disable-zoom disable-map-type-control api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc" >
+            <google-map-marker id="birr" drag-events latitude="{{latitude}}" longitude="{{longitude}}" draggable="true"></google-map-marker>
         </google-map>
 
     </template>
@@ -80,6 +80,9 @@
 
                     this.latitude = resultado.coords.latitude;
                     this.longitude = resultado.coords.longitude;
+
+
+
                 })
 
                     var interim_transcript = '';
