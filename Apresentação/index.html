@@ -1,0 +1,468 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-color="#FFF">
+					<img class="imagenone logomedia" src="img/polymer-2.svg">
+					<h3>Polymer: Desbloqueie o poder dos Web Components</h3>
+				</section>
+				<section data-background-color="#FFF">
+					<section>
+						<h3>Quem sou eu?</h3>
+						<hr>
+
+						<p>Luiz Alexandre</p>
+
+						<a target="_blank" href="mailto:luizalexandredev@gmail.com">
+							<p>luizalexandredev@gmail.com</p>
+						</a>
+
+						<a target="_blank" href="https://github.com/luizalexandrew">
+							<img class="logopequena" src="img/GitHub-Mark.png">
+						</a>
+						<a target="_blank" href="https://github.com/luizalexandrew">
+							<img class="logopequena" src="img/fb-art.png">
+						</a>
+					</section>
+					<section>
+						<a target="_blank" href="http://kood.me/">
+							<img src="img/Captura de tela de 2017-07-19 16-48-54.png">
+						</a>
+						<p>Aplicações personalizadas para o seu negócio</p>
+					</section>
+				</section>
+				<section data-background-color="#230440">
+					<section>
+						<h3>O que está acontecendo hoje?</h3>
+						<!-- <hr>
+
+						<p>Luiz Alexandre</p>
+
+						<a target="_blank" href="mailto:luizalexandredev@gmail.com">
+							<p>luizalexandredev@gmail.com</p>
+						</a>
+
+						<a target="_blank" href="https://github.com/luizalexandrew">
+							<img class="logopequena" src="img/GitHub-Mark.png">
+						</a>
+						<a target="_blank" href="https://github.com/luizalexandrew">
+							<img class="logopequena" src="img/fb-art.png">
+						</a> -->
+					</section>
+					<section>
+						<a target="_blank" href="http://getbootstrap.com/">
+							<img class="logomedia imagenone" src="img/bootstrap-stack.png">
+						</a>
+						<p>Crie projetos responsivos e móveis na web com a biblioteca de componentes de front-end mais popular do mundo.</p>
+					</section>
+
+					<section>
+						<a target="_blank" href="http://getbootstrap.com/">
+							<img class="logomedia imagenone" src="img/React_logo_wordmark.png">
+						</a>
+						<p>Uma biblioteca de JavaScript para criar interfaces de usuário</p>
+					</section>
+
+					<section>
+						<a target="_blank" href="http://getbootstrap.com/">
+							<img class="logomedia imagenone" src="img/angular.png">
+						</a>
+						<p>Um framework. Mobile e desktop.</p>
+					</section>
+
+					<section>
+						<a target="_blank" href="http://getbootstrap.com/">
+							<img class="logomedia imagenone" src="img/viu.png">
+						</a>
+						<p>The Progressive JavaScript Framework</p>
+					</section>
+
+					<section>
+						<a target="_blank" href="https://jquery.com/">
+							<img class="logomedia imagenone" src="img/jquery.png">
+						</a>
+						<p>Escreva menos, faça mais</p>
+					</section>
+
+					<section>						
+						<h3>Entre outros</h3>
+					</section>
+
+				</section>
+
+			<!-- 	<section data-background-color="#FFF">
+					<section>
+						<h4>Jogo disponível na Google Play</h4>
+						<img src="img/drawing.svg">
+						<br>
+						<a href="https://goo.gl/Shi3tz"><img height="80px" src="img/android-app-on-google-play-01.png"></p></a>
+					</section>
+					<section>
+						<img src="img/buddyaberta.webp">
+					</section>
+					<section>
+						<img src="img/buddy.webp">
+					</section>
+					
+										
+					
+
+				</section>
+
+				<section data-background-color="#607D8B">
+					<h2>Definição de um jogo</h2>
+					<div>
+						<ul>
+							<li class="fragment">1 - Atividade cuja natureza ou finalidade é a diversão, o entretenimento.</li>
+							<li class="fragment">2 - Essa atividade, submetida a regras que estabelecem quem vence e quem perde.</li>
+							<li class="fragment">3 - Jogo é toda e qualquer atividade em que exista a figura do jogador (como indivíduo praticante) e regras.</li>
+						</ul>
+					</div>
+					<div class="fragment">
+						<hr>
+						<h4>No geral um jogo é tudo que tem</h4>
+						<h4>Jogador, objetivo e regras</h4>
+					</div>
+					
+
+				</section>
+
+				<section data-background-color="#263238">
+					<h2>Por que as pessoas jogam</h2>
+					<img width="60%" src="img/smartphone_gaming.jpg">
+					<p>Razãos pelas quais os Americanos jogam em smartphones segundo uma pesquisa feita pela Mocospace</p>
+				</section>
+
+				<section data-background-color="#F44336">
+					<h2>Jogos Indie</h2>
+					<p>
+						Jogos eletrônicos independentes, são jogos eletrônicos criados por uma pessoa ou pequenas equipes com ou sem apoio financeiro de publicadoras de jogos eletrônicos, frequentemente focam em inovação e distribuição digital.
+					</p>
+				</section>
+				<section data-background-color="#F44336">
+					<img width="600px" src="img/1280px-Minecraft_logo.svg.png">
+					<img width="500px" src="img/FlappyBirdMerchandiser.png">
+					<img width="500px" src="img/Super-2.png">
+				</section>
+
+				<section data-background-color="#2196F3">
+					<h2>Elementos jogos</h2>
+					<h3>O que é HUD? (Heads-Up Display)</h3>
+					<p class="fragment">HUD é qualquer elemento gráfico exibido na tela para transmitir informações ao jogador</p>
+				</section>
+
+				<section data-background-color="#2196F3">
+					<section>
+						<span>killer instinct </span>
+						<img width="80%" src="img/maxresdefault.jpg">
+						<div class="fragment">
+							<hr>
+							<p>Barra de saúde, mira, informação munição, inventário, pontuação, mapa, sinais sensíveis ao contexto e etc</p>
+						</div>
+					</section>
+					<section>
+						<span>Buddy Run</span>
+						<br>
+						<img src="img/attempts.webp">						
+					</section>
+					<section>
+						<span>Flappy Bird</span>
+						<br>
+						<img src="img/captura.png">
+					</section>
+					<section>
+						<span>Crossy Road</span>
+						<br>
+						<img src="img/crossyroad_samecars.jpg">
+					</section>	
+				</section>
+
+				<section data-background-color="#3F51B5">
+					<section>
+						<h1>Vamos começar a criar um jogo 2D?</h1>
+					</section>
+				</section>
+
+				<section data-background-color="#FFF">
+					<section>
+						<h1>Elebore o conceito do seu jogo</h1>
+					</section>
+					<section>
+						<h1>Desenvolva a Ideia<h1>
+						<h2 class="fragment" >Escreva as ideias que teve para o jogo</h2>
+						<h2 class="fragment" >Crie esboços</h2>
+						<h2 class="fragment" >Prototipação</h2>
+					</section>
+					<section>
+						<img src="img/welder.jpg">
+					</section>
+					<section>
+						<img src="img/002.jpg">
+					</section>
+					<section>
+						<h1>Objetivo do jogo</h1>
+						<h4 class="fragment" >Ligar o pontos inicial até o ponto final pelo caminho de menos custo e distância com um limite de tempo (Obter o melhor caminho em menos tempo)</h4>
+					</section>
+
+					<section>
+						<h1>Público-alvo</h1>
+						<h4 class="fragment" >Pessoas que tenham Smartphones interessadas em jogos casuais.</h4>
+					</section>
+					<section>
+						<img src="img/88.png">
+					</section>
+					<section>
+						<h1>Plataformas</h1>
+						<h2 class="fragment" >Quais plataformas que meu jogo estará disponível?</h2>
+					</section>
+
+					<section>
+						<img width="500px" src="img/darefest_icon_set.png">
+						<br>
+						<img width="700px" class="fragment" src="img/logo-navegadores-SVG.jpg">
+						<br>
+						<img width="400px" class="fragment" src="img/418-kona_software_logos.png">
+					</section>					
+				</section>
+
+				<section data-background-color="#424242">
+					<section>
+						<h1>O que é uma Game Engine?</h1>
+						<p class="fragment">A funcionalidade tipicamente fornecida por um motor de jogo inclui: um motor gráfico para renderizar gráficos 2D e/ou 3D, um motor de física para simular a física ou simplesmente para fazer detecção de colisão, suporte a animação, sons, inteligência artificial, networking, gerência de memória, gerência de arquivos</p>
+					</section>
+
+					<section>
+						<h3>Box Collider</h3>
+						<img src="img/54199-untitled2.png">
+					</section>
+					<section>
+						<img src="img/colision.svg">
+					</section>
+					<section>						
+						<img width="800px" src="img/captura2.png">
+					</section>
+					<section>
+						<h3>Sprites</h3>
+						<img src="img/megaman_running_sprites_by_cobalt_blue_knight-d2y1i8s.jpg">
+					</section>
+					<section>
+						<img width="100%" src="img/feature.png">
+					</section>
+
+					<section>
+						<h3>Câmera</h3>
+						<img width="100%" src="img/camera_moving_along.gif">
+					</section>
+
+					<section>
+						<h3>Entre outros recursos que facilita a criação de um jogo</h3>
+					</section>
+				</section>
+
+
+				<section data-background-color="#424242">
+					<section>
+						<h1>Algumas Engines para criação de jogos 2D</h1>
+					</section>
+				</section>
+
+				<section data-background-color="#424242">
+					<section>
+						<img src="img/logounity.png">
+						<p>Game Engine 2D e 3D Multiplataforma</p>
+					</section>
+					<section>
+						<img width="100%" src="img/Captura de tela de 2016-06-09 04-47-09.png">
+					</section>
+					<section>
+						<h2>Jogos feitos com a Unity</h2>
+					</section>
+					<section>
+						<img src="img/Captura de tela de 2016-06-09 04-42-20.png">
+						<img src="img/Captura de tela de 2016-06-09 04-42-31.png">
+						<img src="img/Captura de tela de 2016-06-09 04-41-53.png">
+					</section>
+					<section>
+						<img src="img/Captura de tela de 2016-06-09 04-42-08.png">
+						<img src="img/Captura de tela de 2016-06-09 04-43-03.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<img src="img/cocos2dx_landscape.png">
+						<p>Game Engine 2D Open Source</p>						
+					</section>
+					<section>
+						<img src="img/Captura de tela de 2016-06-09 04-53-49.png">
+					</section>
+					<section>
+						<img src="img/Captura de tela de 2016-06-09 04-54-28.png">
+					</section>
+					<section>
+						<img src="img/Captura de tela de 2016-06-09 04-55-02.png">
+					</section>
+				</section>
+
+				<section data-background-color="#FFF">
+					<section>
+						<img src="img/Godot_(game_engine)_logo.svg.png">
+						<p>Game Engine 2D e 3D Open Source</p>
+					</section>
+					<section>
+						<img width="100%" src="img/godoto.png">
+					</section>
+
+					<section>
+						<img width="100%" src="img/design.png">
+					</section>
+					<section>
+						<img src="img/gotodo2.png">
+					</section>
+				</section>
+
+				<section data-background-color="#E65100">
+					<section>
+						<h1>Gameficação</h1>
+						<p class="fragment" >Gameficação é o uso de técnicas de design de jogos que utilizam mecânicas de jogos e pensamentos orientados a jogos para enriquecer contextos diversos normalmente não relacionados a jogos</p>
+					</section>
+					<section>
+						<ul>
+							<h4 class="fragment">Pontos</h4>
+							<h4 class="fragment">Troféus e crachá</h4>
+							<h4 class="fragment">Barra e progressão</h4>
+							<h4 class="fragment">Quadro dos melhores escores</h4>
+							<h4 class="fragment">Presente e moeda virtual</h4>
+							<h4 class="fragment">Entre outros...</h4>
+						</ul>
+					</section>
+				</section>
+
+				<section data-background-color="#00838F">
+					<section>
+						<h2>Exemplos de uso de Gameficação</h2>
+					</section>
+				</section>
+
+				<section data-background-color="#FFF">
+					<section>
+						<img width="600px" src="img/Duolingo.png">
+					</section>
+					<section>
+						<img width="600px" src="img/duolingo/Captura de tela de 2016-06-09 05-27-26.png">
+					</section>
+					<section>
+						<img src="img/duolingo/Captura de tela de 2016-06-09 05-41-32.png">
+					</section>
+					<section>
+						<img src="img/001.png">
+					</section>
+					<section>
+						<img src="img/duolingo/Captura de tela de 2016-06-09 05-30-38.png">
+					</section>
+					<section>
+						<img src="img/duolingo/Captura de tela de 2016-06-09 05-33-45.png">
+					</section>
+					<section>
+						<img src="img/duolingo/Captura de tela de 2016-06-09 05-42-19.png">
+					</section>
+					<section>
+						<img src="img/duolingo/Captura de tela de 2016-06-09 05-31-14.png">
+					</section>
+					<section>
+						<img width="450px" src="img/duolingo/Captura de tela de 2016-06-09 05-41-51.png">
+					</section>
+					<section>
+						<img width="100%" src="img/duolingo/Captura de tela de 2016-06-09 05-42-53.png">
+					</section>
+					<section>
+						<img width="100%" src="img/duo002.png">
+					</section>
+					<section>
+						<img width="450px" src="img/duo001.png">
+					</section>
+					
+				</section>
+
+				<section data-background-color="#D50000">
+					<section>
+						<img src="img/nikeplus_running_review_cover.jpg">
+					</section>
+					<section>
+						<img src="img/nike01.jpg">
+					</section>
+					<section>
+						<img src="img/nike02.jpg">
+					</section>
+				</section>
+
+				<section data-background-color="#FFF">
+					<section>
+						<img src="img/MOVAMAIS-MARCA-FINAL-POSITIVA-ALTA.png">
+					</section>
+					<section>
+						<img src="img/mova-mais-site.jpg">
+					</section>
+					<section>
+						<img height="700px" src="img/IMG_7894-576x1024.png">
+					</section>
+				</section>
+
+				<section data-background-color="#93C4D3">
+					<section>
+						<img src="img/waze-logo.jpg">
+					</section>
+					<section>
+						<img src="img/blog-image.jpg">
+					</section>
+				</section>
+
+				<section data-background-color="#2196F3">
+					<h1>Obrigado!</h1>
+				</section>
+ -->
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
