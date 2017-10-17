@@ -1,0 +1,48 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <template is="dom-if" if={{nome}}>
+        Olá [[nome]]
+    </template>
+
+    <template is="dom-if" if={{!nome}}>
+      Digite seu nome completo 
+     </template>
+
+    <paper-input always-float-label label="Floating label" value="{{nome}}"></paper-input>
+
+  </template>
+
+  <script>
+    /**
+     * `my-element`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class MyElement extends Polymer.Element {
+      static get is() { return 'my-element'; }
+      static get properties() {
+        return {
+          nome: {
+            type: String,
+            value: '',
+          }
+        };
+      }
+    }
+
+    window.customElements.define(MyElement.is, MyElement);
+  </script>
+</dom-module>
