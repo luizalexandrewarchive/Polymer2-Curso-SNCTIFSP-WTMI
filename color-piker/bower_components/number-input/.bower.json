@@ -1,0 +1,42 @@
+{
+  "name": "number-input",
+  "authors": [
+    "Johannes Brautzsch <fooloomanzoo>"
+  ],
+  "description": "input for numeric values",
+  "homepage": "https://github.com/fooloomanzoo/number-input/",
+  "keywords": [
+    "webcomponents",
+    "polymer",
+    "number",
+    "input",
+    "step"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fooloomanzoo/number-input.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.9 - 2"
+  },
+  "devDependencies": {
+    "webcomponentsjs": "webcomponents/webcomponentsjs",
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^1.0.0"
+  },
+  "version": "1.1.8",
+  "_release": "1.1.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.8",
+    "commit": "542f3ff663973900c9df0ce5c5e9ee1c7bdb8c28"
+  },
+  "_source": "https://github.com/fooloomanzoo/number-input.git",
+  "_target": "*",
+  "_originalSource": "fooloomanzoo/number-input"
+}

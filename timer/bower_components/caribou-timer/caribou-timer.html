@@ -1,0 +1,715 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="custom-icons.html">
+
+
+<!--
+`<caribou-timer>` is an element used to display a timer (Android style)
+
+    This element allow you to set a default time. This time can be edited with the plus and minus button.
+    Or if the attribute 'input-time' is added, it can be edited with the keyboard and the arrow key.
+
+    A maximum and minimum limit can be set.
+
+    Moreover you can set the 'remaining-time' property. If set this property will automatically start the timer,
+    a the specific point according to the whole-time value.
+
+    Example:
+        '<caribou-timer input-time whole-time="60" max-time-limit="3600" min-time-limit="30"></caribou-timer>'
+
+    ### Styling The following custom properties and mixins are available for styling: Custom property | Description | Default
+    ----------------|-------------|----------
+     `--editable-text-color` | Time color on the editable field (inputTime=true) | `#64B5F6` 
+     `--editable-text-color-disabled` | Time color on the editable field disabled (inputTime=true) | `#64B5F6`
+     `--non-editable-text-color`| Time color on the non editable field (inputTime=false)| `#64B5F6`
+     `--time-button-color`| Plus and minus button color | `#64B5F6`
+     `--time-button-color-disabled`| Disabled plus and disabled minus button color | `#64B5F6`
+     `--time-button-color-hover`| Plus and minus button color hover | `#64B5F6`
+     `--circle-line-passed-color`| Color of the passed circle line | `#64B5F6`
+     `--circle-line-remaining-color`| Color of the remaining circle line | `#64B5F6`
+     `--circle-line-endpoint-fill-color`| Fill color or the little circle at the edge of the progression line | `#64B5F6`
+     `--circle-line-endpoint-stroke-color` | Stroke color or the little circle at the edge of the progression line | `#64B5F6`
+     `--button-start-color` | Button start color | `#64B5F6`
+     `--button-pause-color`| Button pause color | `#64B5F6`
+     `--button-start-color-hover`| Button start color on hover | `#64B5F6`
+     `--button-pause-color-hover`| Button pause color on hover | `#64B5F6`
+-->
+<dom-module id="caribou-timer">
+    <template>
+        <style>
+             :host {
+                --editable-text-color: #64B5F6;
+                --editable-text-color-disabled: #64B5F6;
+                --non-editable-text-color: #64B5F6;
+                --time-button-color: #64B5F6;
+                --time-button-color-disabled: #64B5F6;
+                --time-button-color-hover: #64B5F6;
+                --circle-line-passed-color: #B6B6B6;
+                --circle-line-remaining-color: #64B5F6;
+                --circle-line-endpoint-fill-color: #ffffff;
+                --circle-line-endpoint-stroke-color: #64B5F6;
+                --button-start-color: #64B5F6;
+                --button-pause-color: #64B5F6;
+                --button-start-color-hover: #64B5F6;
+                --button-pause-color-hover: #64B5F6;
+
+                display: block;
+            }
+
+            button[data-setter] {
+                outline: none;
+                background: transparent;
+                border: none;
+                font-family: 'Roboto';
+                font-weight: 300;
+                font-size: 18px;
+                width: 25px;
+                height: 30px;
+                color: var(--time-button-color);
+                cursor: pointer;
+            }
+
+            button[data-setter]:disabled {
+                color: var(--time-button-color-disabled);
+                cursor: default;
+            }
+
+            button[data-setter]:hover {
+                opacity: 0.5;
+                color: var(--time-button-color-hover);
+            }
+
+            .container {
+                position: relative;
+                top: 30px;
+                width: 300px;
+                margin: 0 auto;
+            }
+
+            .setters {
+                position: absolute;
+                left: 50px;
+                top: 75px;
+            }
+
+            .minutesSet,
+            .hoursSet {
+                float: left;
+                margin-right: 22px;
+            }
+
+            .secondsSet {
+                float: right;
+            }
+
+            .controlls {
+                position: absolute;
+                left: 50px;
+                top: 100px;
+                text-align: center;
+            }
+
+            #pause {
+                margin-top: 10px;
+            }
+
+            #pause:hover {
+                opacity: 0.8;
+            }
+
+            .eCBase {
+                fill: none;
+                stroke: var(--circle-line-passed-color);
+                stroke-width: 4px
+            }
+
+            .eCProgress {
+                fill: none;
+                stroke: var(--circle-line-remaining-color);
+                stroke-width: 4px;
+                transition: stroke-dashoffset 1s linear;
+            }
+
+            .eCPointer {
+                fill: var(--circle-line-endpoint-fill-color);
+                stroke: var(--circle-line-endpoint-stroke-color);
+                stroke-width: 2px;
+            }
+
+            #ePointer {
+                transition: transform 1s linear;
+            }
+
+            #buttonGroup {
+                width: 206px;
+            }
+
+            .displayRemainTime,
+            #inputTimeGroup {
+                @apply --layout-horizontal;
+            }
+
+            .displayRemainTime {
+                font-weight: 100;
+                font-size: 45px;
+                color: var(--non-editable-text-color);
+            }
+
+            #inputTimeGroup p,
+            .displayRemainTime p {
+                font-weight: 100;
+                font-size: 30px;
+                margin: auto;
+            }
+
+            .displayRemainTime p {
+                color: var(--non-editable-text-color);
+            }
+
+            #inputTimeGroup p {
+                color: var(--editable-text-color);
+            }
+
+            #inputTimeGroup p:disabled {
+                color: var(--editable-text-color-disabled);
+            }
+
+            #pause {
+                color: var(--button-start-color);
+                --paper-icon-button: {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+
+            #pause:hover {
+                color: var(--button-start-color-hover);
+            }
+
+            #pause.pauseBtn {
+                color: var(--button-pause-color);
+            }
+
+            #pause.pauseBtn:hover {
+                color: var(--button-pause-color-hover);
+            }
+
+            input.timeInput {
+                width: 55px;
+                font-weight: 100;
+                font-size: 45px;
+                color: var(--editable-text-color);
+                border: none;
+                outline: none;
+                font-family: 'Roboto';
+            }
+
+            input.timeInput:disabled {
+                background: none;
+                color: var(--editable-text-color-disabled);
+            }
+
+            input.timeInput::-webkit-outer-spin-button,
+            input.timeInput::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        </style>
+        <div class="container">
+            <div class="setters">
+                <div class="hoursSet">
+                    <button id="hrPlus" disabled$="[[isStarted]]" on-click="changeTime" data-setter="hours-plus">+</button>
+                    <button id="hrMinus" disabled$="[[isStarted]]" on-click="changeTime" data-setter="hours-minus">-</button>
+                </div>
+                <div class="minutesSet">
+                    <button id="minPlus" disabled$="[[isStarted]]" on-click="changeTime" data-setter="minutes-plus">+</button>
+                    <button id="minMinus" disabled$="[[isStarted]]" on-click="changeTime" data-setter="minutes-minus">-</button>
+                </div>
+                <div class="secondsSet">
+                    <button id="secPlus" disabled$="[[isStarted]]" on-click="changeTime" data-setter="seconds-plus">+</button>
+                    <button id="secMinus" disabled$="[[isStarted]]" on-click="changeTime" data-setter="seconds-minus">-</button>
+                </div>
+            </div>
+            <div class="circle">
+                <svg width="300" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(110,110)">
+                        <circle r="100" class="eCBase" />
+                        <g transform="rotate(-90)">
+                            <circle r="100" class="eCProgress" />
+                            <g id="ePointer">
+                                <circle cx="100" cy="0" r="8" class="eCPointer" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="controlls">
+                <div id="divTimeGroup" class="displayRemainTime" hidden$="[[inputTime]]">
+                    <div id="hour">{{hour}}</div>
+                    <p>:</p>
+                    <div id="min">{{min}}</div>
+                    <p>:</p>
+                    <div id="sec">{{sec}}</div>
+                </div>
+                <div id="inputTimeGroup" hidden$="[[!inputTime]]">
+                    <iron-input bind-value="{{hour}}">
+                        <input is="iron-input" disabled$="[[isStarted]]" class="timeInput" value="{{hour::input}}" min="0" id="hour" type="number"
+                            on-change="_recalculWholeTime">
+                    </iron-input>
+                    <p disabled$="[[isStarted]]">:</p>
+                    <iron-input bind-value="{{min}}">
+                        <input is="iron-input" disabled$="[[isStarted]]" class="timeInput" value="{{min::input}}" min="0" max="60" id="min" type="number"
+                            on-change="_recalculWholeTime">
+                    </iron-input>
+                    <p disabled$="[[isStarted]]">:</p>
+                    <iron-input bind-value="{{sec}}">
+                        <input is="iron-input" disabled$="[[isStarted]]" class="timeInput" value="{{sec::input}}" min="0" max="60" id="sec" type="number"
+                            on-change="_recalculWholeTime">
+                    </iron-input>
+                </div>
+                <div id="buttonGroup">
+                    <paper-icon-button id="pause" on-click="pauseTimer" icon="custom-icons:{{_ternary(isStarted,'pause-circle-filled','play-circle-filled')}}"
+                        class$="{{_ternary(isStarted,'pauseBtn','')}}"></paper-icon-button>
+                    <slot></slot>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        /**
+         * `caribou-timer`
+         * Timer element - android style
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class CaribouTimer extends Polymer.Element {
+
+            /**
+             * Fired when the timer is stopped
+             *
+             * @event start-timer
+             * @param {Object} detail empty
+             */
+
+            /**
+             * Fired when the timer is started
+             *
+             * @event stop-timer
+             * @param {Object} detail empty
+             */
+
+            /**
+             * Fired when the max time limit is reached
+             *
+             * @event max-time-limit-reached
+             * @param {Object} detail empty
+             */
+
+            /**
+             * Fired when the min time limit is reached
+             *
+             * @event min-time-limit-reached
+             * @param {Object} detail empty
+             */
+
+            static get is() {
+                return 'caribou-timer';
+            }
+            static get properties() {
+                return {
+
+                    /**
+                     * Property used to display editable time field or just a classic div.
+                     */
+                    inputTime: {
+                        type: Boolean,
+                        value: false,
+                        observer: "_showTime"
+                    },
+
+                    /**
+                     * This is the length of the circle timer.
+                     */
+                    _length: {
+                        type: Number,
+                        value() {
+                            return Math.PI * 2 * 100;
+                        },
+                        readOnly: true
+                    },
+
+                    /**
+                     * This is the time remaining.
+                     * If you want to start the timer at a specific point, this will represent the time left.
+                     */
+                    remainingTime: {
+                        type: Number,
+                        observer: "_resumeTimer"
+                    },
+
+                    /**
+                     * This is the maximum time allowed into the timer.
+                     */
+                    maxTimeLimit: Number,
+
+                    /**
+                     * This is the minimum time allowed into the timer.
+                     */
+                    minTimeLimit: Number,
+
+                    /**
+                     * This is the interval function element created.
+                     */
+                    _intervalTimer: Number,
+
+                    /**
+                     * This is the time left during the decount.
+                     * It will change everytime the timer is working.
+                     */
+                    _timeLeft: Number,
+
+                    /**
+                     * This is the time to initialize the timer.
+                     * This property will contain the timer set before the timer start.
+                     */
+                    wholeTime: {
+                        type: Number,
+                        value() {
+                            return 0.5 * 60;
+                        },
+                        notify: true,
+                        observer: '_displayTimeLeft'
+                    },
+
+                    /**
+                     * This is to indicate if the timer is paused.
+                     */
+                    isPaused: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    /**
+                     * This is to indicate if the timer is started, and is currently running.
+                     */
+                    isStarted: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    /**
+                     * This property is used to indicate if the timer start right after the start button is clicked,
+                     * Or if annother action need to be done to start the timer.
+                     * If true the timer will start after the function is called.
+                     */
+                    waitStartFlag: {
+                        type: Boolean,
+                        value: false
+                    }
+                };
+            }
+
+            /**
+             * We call the ready function to clear the timer on first load.
+             */
+            ready() {
+                super.ready();
+                this._clearTimer();
+            }
+
+            /**
+             * This function is an observer callback used to display the good time input view.
+             * @param {Boolean} isInput The Value of the new property
+             * @private
+             */
+            _showTime(isInput) {
+                if (isInput) {
+                    this.$.inputTimeGroup.style.display = "flex";
+                    this.$.divTimeGroup.style.display = "none";
+                } else {
+                    this.$.divTimeGroup.style.display = "flex";
+                    this.$.inputTimeGroup.style.display = "none";
+                }
+            }
+
+            /**
+             * This function is called when the 'plus' and 'minus' character are clicked.
+             * The wholeTime will be redefined according to the parameter.
+             * It will call the function to change the view.
+             *
+             * @param {Number} seconds The Value of the new property
+             */
+            changeWholeTime(seconds) {
+                if ((this.wholeTime + seconds) > 0) {
+
+                    if (!this._isTimeValid(this.wholeTime + seconds)) {
+                        this._displayTimeLeft(this.wholeTime);
+                        return;
+                    }
+
+                    this.set('wholeTime', this.wholeTime + seconds);
+                    this._update(this.wholeTime, this.wholeTime);
+                }
+            }
+
+            /**
+             * This is a callback function used to change the time when the input value change.
+             * We will redefined the 'wholeTime' property and check if the time follow the min/max rules.
+             * 
+             * @private             
+             */
+            _recalculWholeTime() {
+                var h = Number(this.$.hour.value);
+                var m = Number(this.$.min.value);
+                var s = Number(this.$.sec.value);
+
+                var tot = h * 60 * 60 + m * 60 + s;
+
+                if (!this._isTimeValid(tot)) {
+                    this._displayTimeLeft(this.wholeTime);
+                    return;
+                }
+
+                this.set('wholeTime', tot);
+                this._update(this.wholeTime, this.wholeTime);
+            }
+
+            /**
+             * This function is used to check if the new time respect the min/max rules.
+             * If it doesn't and event will be fired in both case.
+             * 'max-time-limit-reached' and 'min-time-limit-reached'.
+             *
+             * @param {Number} Time This is the time in second 
+             * @return {Boolean} True if it's valid, false otherwise
+             * @private
+             */
+            _isTimeValid(time) {
+
+                //check if a max time is set.
+                //return true (valid) if not
+                if (this.maxTimeLimit !== null && this.maxTimeLimit !== undefined) {
+                    if (time > this.maxTimeLimit) {
+                        this.dispatchEvent(new CustomEvent('max-time-limit-reached', {
+                            bubbles: true,
+                            composed: true
+                        }));
+                        return false;
+                    } else if (time < this.minTimeLimit) {
+                        this.dispatchEvent(new CustomEvent('min-time-limit-reached', {
+                            bubbles: true,
+                            composed: true
+                        }));
+                        return false;
+                    }
+
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+
+            /**
+             * This function is used to update the circle progression.
+             *
+             * @param {Number} value
+             * @param {Number} timePercent 
+             * @private
+             */
+            _update(value, timePercent) {
+                var offset = -this._length - this._length * value / (timePercent);
+                this.shadowRoot.querySelector(".eCProgress").style.strokeDashoffset = offset;
+                this.$.ePointer.style.transform = `rotate(${360 * value / (timePercent)}deg)`;
+                //var v = 360 * value / (timePercent);                
+                //this.$.ePointer.style.transform = "rotate(" + v + "deg)";
+            }
+
+            /**
+             * This function is the 'start timer' internal function.
+             * It will start the interval to decrease the time and redraw the circle.
+             *
+             * @param {Number} seconds This is the time
+             * @private
+             */
+            _timer(seconds) { //counts time, takes seconds
+                var remainTime = Date.now() + (seconds * 1000);
+                this._displayTimeLeft(seconds);
+
+                this._intervalTimer = setInterval(function () {
+                    this._timeLeft = Math.round((remainTime - Date.now()) / 1000);
+                    if (this._timeLeft < 0) {
+                        clearInterval(this._intervalTimer);
+                        this.isStarted = false;
+                        this.querySelectorAll('button[data-setter]').forEach(function (btn) {
+                            btn.disabled = false;
+                            btn.style.opacity = 1;
+                        });
+                        this._displayTimeLeft(this.wholeTime);
+                        this._fireEvent("stop");
+                        return;
+                    }
+                    this._displayTimeLeft(this._timeLeft);
+                }.bind(this), 1000);
+            }
+
+            /**
+             * This function is used to stop the timer.
+             */
+            pauseTimer() {
+                if (this.isStarted === false) {
+                    this._fireEvent("start");
+                    if (!this.waitStartFlag)
+                        this.launchTimer();
+                } else {
+                    this._fireEvent("stop");
+                    this.stopTimer();
+                }
+            }
+
+            /**
+             * This is function to start the whole process.
+             * This will call the '_timer' function to start the progress.
+             */
+            launchTimer() {
+                this._timer(this.wholeTime);
+                this.isStarted = true;
+
+                /*this.querySelectorAll('button[data-setter]').forEach(function (btn) {
+                    btn.disabled = true;
+                    btn.style.opacity = 0.5;
+                });*/
+            }
+
+            /**
+             * This is used to set the time that will be display while the countdown is processing.
+             *
+             * @param {Number} timeLeft This is the time left that need to be parsed.
+             * @private
+             */
+            _displayTimeLeft(timeLeft) { //displays time on the input
+                var realMinutes = Math.floor(timeLeft / 60);
+                var minutes = Math.floor(realMinutes % 60);
+                var hours = Math.floor(realMinutes / 60);
+                var seconds = timeLeft % 60;
+
+                var hS = (hours < 10 ? '0' : '') + hours;
+                var mS = (minutes < 10 ? '0' : '') + minutes;
+                var sS = (seconds < 10 ? '0' : '') + seconds;
+
+                this.set("hour", hS.toString());
+                this.set("min", mS.toString());
+                this.set("sec", sS.toString());
+
+                this._update(timeLeft, this.wholeTime);
+            }
+
+            /**
+             * This is a callback function used to call the 'changeWholeTime' function according to the button clicked.
+             * It will go through the dataset and calcul how muck time need to be added or removed.
+             * @param {Object} event The event object
+             */
+            changeTime(event) {
+                var param = event.currentTarget.dataset.setter;
+                var seconds;
+                switch (param) {
+                    case 'hours-plus':
+                        this.changeWholeTime(1 * 60 * 60);
+                        break;
+                    case 'hours-minus':
+                        this.changeWholeTime(-1 * 60 * 60);
+                        break;
+                    case 'minutes-plus':
+                        this.changeWholeTime(1 * 60);
+                        break;
+                    case 'minutes-minus':
+                        this.changeWholeTime(-1 * 60);
+                        break;
+                    case 'seconds-plus':
+                        this.changeWholeTime(1);
+                        break;
+                    case 'seconds-minus':
+                        this.changeWholeTime(-1);
+                        break;
+                }
+
+                this._displayTimeLeft(this.wholeTime);
+            }
+
+            /**
+             * This is a callback observer function called when the remaining time is set.
+             *
+             * @param {Number} remaining This is the remaining time in seconds.
+             * @private
+             */
+            _resumeTimer(remaining) {
+                this.set("isStarted", true);
+                this._timer(remaining);
+            }
+
+            /**
+             * This function is used to clear the timer.
+             * Enable the input, reset the circle timer.
+             * Display the 'wholeTime' property value.
+             * @private
+             */
+            _clearTimer() {
+                this.shadowRoot.querySelector(".eCProgress").style.strokeDasharray = this._length;
+                this._update(this.wholeTime, this.wholeTime);
+                this._displayTimeLeft(this.wholeTime);
+                /*this.querySelectorAll('button[data-setter]').forEach(function (btn) {
+                    btn.disabled = false;
+                    btn.style.opacity = 1;
+                });*/
+            }
+
+            /**
+             * Function used to fire an event according to the type pass in parameter.
+             * Two events can be fired : 'start-timer' and 'stop-timer'.
+             * 
+             * @param {String} type Start or Stop
+             */
+            _fireEvent(type) {
+                if (type === "start") {
+                    this.dispatchEvent(new CustomEvent('start-timer', {
+                        bubbles: true,
+                        composed: true
+                    }));
+                } else if (type === "stop") {
+                    this.dispatchEvent(new CustomEvent('stop-timer', {
+                        bubbles: true,
+                        composed: true
+                    }));
+                }
+            }
+
+            /**
+             * This functio is used to stop the timer.
+             * This will stop the interval countdown and call the 'clearTimer' function for the circle
+             * and the display time.
+             */
+            stopTimer() {
+                this.isStarted = false;
+                clearInterval(this._intervalTimer);
+                this._clearTimer();
+            }
+
+            /**
+             * Used to return the value 'a' or 'b' according to the 's' value.
+             *
+             * @param {boolean} s The boolean value to check
+             * @param {String} a Value returned if true
+             * @param {String} b Value returned if false
+             * @return {String} a or b
+             */
+            _ternary(s, a, b) {
+                return s ? a : b
+            }
+
+        }
+
+        window.customElements.define(CaribouTimer.is, CaribouTimer);
+    </script>
+</dom-module>

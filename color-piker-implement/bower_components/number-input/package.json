@@ -1,0 +1,25 @@
+{
+  "name": "@fooloomanzoo/number-input",
+  "version": "1.1.7",
+  "description": "input for numeric values",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "postinstall": "bower install --save-dev",
+    "prepare": "npm version patch",
+    "build": "polymer analyze > analysis.json",
+    "prestart": "polymer analyze > analysis.json",
+    "start": "polymer serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "number",
+    "input",
+    "polymer",
+    "webcomponents"
+  ],
+  "author": "fooloomanzoo",
+  "license": "MIT"
+}

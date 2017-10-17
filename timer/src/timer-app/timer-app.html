@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="timer-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class TimerApp extends Polymer.Element {
+      static get is() { return 'timer-app'; }
+    }
+
+    window.customElements.define(TimerApp.is, TimerApp);
+  </script>
+</dom-module>

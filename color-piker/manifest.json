@@ -1,0 +1,6 @@
+{
+  "name": "color-piker",
+  "short_name": "color-piker",
+  "start_url": "/",
+  "display": "standalone"
+}

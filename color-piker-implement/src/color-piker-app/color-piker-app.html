@@ -1,0 +1,42 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/color-picker/color-picker.html">
+
+<dom-module id="color-piker-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100vh;
+        width: 100%;
+      }
+      color-picker{
+        width: 200px;
+        height: 40px;
+      }
+    </style>    
+
+    <color-picker value="{{value}}"></color-picker>
+
+
+  </template>
+
+  <script>
+
+    class ColorPikerApp extends Polymer.Element {
+      static get is() { return 'color-piker-app'; }
+      static get properties() {
+        return {
+          value: {
+            type: String,
+            observer: 'changeColor'
+          }
+        };
+      }
+      changeColor(){
+        this.style.backgroundColor = this.value;
+      }
+    }
+
+    window.customElements.define(ColorPikerApp.is, ColorPikerApp);
+  </script>
+</dom-module>

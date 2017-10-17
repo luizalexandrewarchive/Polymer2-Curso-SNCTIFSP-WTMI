@@ -1,0 +1,6 @@
+{
+  "name": "timer",
+  "short_name": "timer",
+  "start_url": "/",
+  "display": "standalone"
+}
