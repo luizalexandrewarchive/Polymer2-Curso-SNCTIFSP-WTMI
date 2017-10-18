@@ -1,0 +1,6 @@
+{
+  "name": "social",
+  "short_name": "social",
+  "start_url": "/",
+  "display": "standalone"
+}
