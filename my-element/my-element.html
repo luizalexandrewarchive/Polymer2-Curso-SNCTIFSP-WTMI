@@ -1,27 +1,32 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/paper-input/paper-input.html">
+<!-- 
+https://www.webcomponents.org/element/PolymerElements/paper-input -->
 
 <dom-module id="my-element">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>[[prop1]]</h2>
-  </template>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+
+        <h2>[[prop1]]</h2>
+
+    </template>
 
   <script>
 
     class MyElement extends Polymer.Element {
-      static get is() { return 'my-element'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'my-element'
-          }
-        };
-      }
+        static get is() { return 'my-element'; }
+        static get properties() {
+            return {
+                prop1: {
+                    type: String,
+                    value: 'my-element'
+                }
+            };
+        }
     }
 
     window.customElements.define(MyElement.is, MyElement);

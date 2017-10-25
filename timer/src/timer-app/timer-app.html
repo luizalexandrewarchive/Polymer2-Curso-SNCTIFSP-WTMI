@@ -1,21 +1,28 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/caribou-timer/caribou-timer.html">
+
+<!-- 
+https://www.webcomponents.org/element/caribouflex/caribou-timer -->
 
 <dom-module id="timer-app">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
 
-  </template>
+        <caribou-timer input-time whole-time="60" max-time-limit="3600" min-time-limit="30"></caribou-timer>
+
+    </template>
 
   <script>
 
     class TimerApp extends Polymer.Element {
-      static get is() { return 'timer-app'; }
+        static get is() { return 'timer-app'; }
     }
 
     window.customElements.define(TimerApp.is, TimerApp);
+
   </script>
 </dom-module>
